@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-planets-table',
   templateUrl: './planets-table.component.html',
   styleUrls: ['./planets-table.component.scss']
 })
-export class PlanetsTableComponent implements OnInit {
+export class PlanetsTableComponent {
   readonly columns = [
     'name',
     'rotationPeriod',
@@ -13,7 +12,4 @@ export class PlanetsTableComponent implements OnInit {
     'diameter',
     'climate'
   ];
-  constructor() {}
-
-  ngOnInit() {}
 }
