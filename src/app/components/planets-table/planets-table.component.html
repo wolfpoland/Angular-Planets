@@ -1,0 +1,30 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Planet name </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.username }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="rotationPeriod">
+    <mat-header-cell *matHeaderCellDef> Rotation period </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.age }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="orbitalPeriod">
+    <mat-header-cell *matHeaderCellDef> Orbital period </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="diameter">
+    <mat-header-cell *matHeaderCellDef> Diameter </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="climate">
+    <mat-header-cell *matHeaderCellDef> Climate</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>
+<mat-paginator showFirstLastButtons></mat-paginator>
