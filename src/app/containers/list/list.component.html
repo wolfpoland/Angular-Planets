@@ -1,6 +1,10 @@
-<mat-card>
+<mat-card class="list__container">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Filter Planets" />
+    <input matInput placeholder="Filter Targets" />
   </mat-form-field>
-  <app-planets-table></app-planets-table>
+  <app-planets-table
+    [planetsData]="planets"
+    [metadata]="listMetadata"
+    (pageChanged)="onPageChanged($event)"
+  ></app-planets-table>
 </mat-card>
