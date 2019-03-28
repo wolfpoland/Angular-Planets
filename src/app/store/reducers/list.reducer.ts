@@ -1,6 +1,5 @@
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { Union, ActionTypes } from '../actions/list.actions';
-import { GetPlanetResponse } from 'src/app/resources/interfaces/get-planets-response.interface';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
 
 export interface ListState {
@@ -24,7 +23,8 @@ export function listReducer(state = initialState, action: Union) {
         ...state,
         loading: true,
         loaded: false,
-        list: null
+        list: null,
+        metadata: null
       };
     }
 
@@ -43,7 +43,20 @@ export function listReducer(state = initialState, action: Union) {
         ...state,
         loading: false,
         loaded: false,
-        list: null
+        list: null,
+        metadata: null
+      };
+    }
+
+    case ActionTypes.LoadMorePlanetsSuccess: {
+      return {
+        ...state,
+        loading: false,
+        list: [
+          ...state.list,
+          ...action.payload.results
+        ],
+        metadata: action.payload.metadata
       };
     }
 

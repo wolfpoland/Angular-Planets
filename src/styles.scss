@@ -1,4 +1,15 @@
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css?family=Germania+One|Roboto');
+
+@import '~@angular/material/theming';
+
+$my-theme-primary: mat-palette($mat-red);
+$my-theme-accent: mat-palette($mat-gray);
+$my-theme-warn: mat-palette($mat-blue);
+
+$my-theme: mat-light-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
+
+@include mat-core();
+@include angular-material-theme($my-theme);
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -131,6 +142,15 @@ table {
 }
 
 * {
-  font-family: Roboto;
+  font-family: Roboto, sans-serif;
   box-sizing: border-box;
+}
+:root {
+  --main-color: #d50000;
+  --white: #faf9f9;
+  --black: #4c3b3b;
+  --gray-5: #bdafaf;
+  --gray-4: #cbc1c1;
+  --gray-3: #d8d1d1;
+  --gray-2: #e4dfdf;
 }

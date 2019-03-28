@@ -1,0 +1,23 @@
+.mat-table {
+  background-color: var(--gray-3);
+}
+
+.mat-paginator {
+  background-color: var(--gray-2);
+  color: var(--black);
+}
+
+.mat-header-row {
+  background-color: var(--gray-2);
+  .mat-header-cell {
+    color: var(--black);
+  }
+}
+
+.mat-row:hover {
+  background-color: var(--main-color);
+  cursor: pointer;
+  .mat-cell {
+    color: var(--white);
+  }
+}
