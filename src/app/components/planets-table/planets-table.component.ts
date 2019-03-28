@@ -27,6 +27,13 @@ export class PlanetsTableComponent implements OnInit {
   @Input()
   metadata: ListMetadata | null;
 
+  @Input()
+  set filterTable(filterValue: string) {
+    if (!!filterValue) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+  }
+
   @Output()
   pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
@@ -40,7 +47,7 @@ export class PlanetsTableComponent implements OnInit {
     'diameter',
     'climate'
   ];
-readonly PAGE_SIZE = 10;
+  readonly PAGE_SIZE = 10;
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -54,4 +61,5 @@ readonly PAGE_SIZE = 10;
   getRow(row: any) {
     console.log('row: ', row);
   }
+
 }

@@ -17,6 +17,7 @@ import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interfa
 })
 export class ListComponent implements OnInit, OnDestroy {
   planets: Planet[];
+  filterValue = '';
   listMetadata: ListMetadata;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(private store: Store<AppState>) {}
@@ -34,6 +35,10 @@ export class ListComponent implements OnInit, OnDestroy {
           this.listMetadata = res.metadata;
         }
       });
+  }
+
+  onInputKeyUp(value: string) {
+    this.filterValue = value;
   }
 
   onPageChanged(num: number) {
