@@ -2,16 +2,12 @@ import { GetPlanetResponse } from './interfaces/get-planets-response.interface';
 import uuid from 'uuid';
 
 export class Utils {
-  static transformFromLowDashToCamel(elm: any) {
+  static appendId(elm: any) {
     return {
       ...elm,
       results: elm.results.map(result => ({
         ...result,
-        id: uuid.v4(),
-        rotationPeriod: result.rotation_period,
-        rotation_period: undefined,
-        orbitalPeriod: result.orbital_period,
-        orbital_period: undefined
+        id: uuid.v4()
       }))
     };
   }

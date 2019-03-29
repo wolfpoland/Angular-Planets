@@ -35,6 +35,7 @@
     "@ngrx/effects": "^7.3.0",
     "@ngrx/store": "^7.3.0",
     "@ngrx/store-devtools": "^7.3.0",
+    "camelcase-keys": "^5.0.0",
     "core-js": "^2.5.4",
     "ngrx-store-localstorage": "^7.0.0",
     "prettier": "^1.16.4",

@@ -17,9 +17,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { ListEffects } from './store/effects/list.effects';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import reducers from './store/reducers/index';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { AppHttpInterceptor } from './resources/interceptor/app-http.interceptor';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -56,7 +57,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     }),
     EffectsModule.forRoot([ListEffects])
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

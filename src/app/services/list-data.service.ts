@@ -20,14 +20,14 @@ export class ListDataService {
   getPlanets(): Observable<ListWithMetadata> {
     return this.http.get<GetPlanetResponse>(endpoints.getPlanets).pipe(
       tap(elm => console.log('elm: ', elm)),
-      map(Utils.transformFromLowDashToCamel.bind(this)),
+      map(Utils.appendId.bind(this)),
       map(Utils.transformToListWithMetadata.bind(this))
     );
   }
 
   getMorePlanets(url: string): Observable<ListWithMetadata> {
     return this.http.get<GetPlanetResponse>(url).pipe(
-      map(Utils.transformFromLowDashToCamel.bind(this)),
+      map(Utils.appendId.bind(this)),
       map(Utils.transformToListWithMetadata.bind(this))
     );
   }
