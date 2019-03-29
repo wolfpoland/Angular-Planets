@@ -9,6 +9,7 @@ import {
   LoadMorePlanets
 } from 'src/app/store/actions/list.actions';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +21,8 @@ export class ListComponent implements OnInit, OnDestroy {
   filterValue = '';
   listMetadata: ListMetadata;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
-  constructor(private store: Store<AppState>) {}
+
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
     this.store.dispatch(new CheckLocalStorageData());
@@ -45,6 +47,10 @@ export class ListComponent implements OnInit, OnDestroy {
     if (!!this.listMetadata && !!this.listMetadata.next) {
       this.store.dispatch(new LoadMorePlanets(this.listMetadata.next));
     }
+  }
+
+  onNavigateToDetailsView(id: string) {
+    this.router.navigate(['/details', id]);
   }
 
   ngOnDestroy() {

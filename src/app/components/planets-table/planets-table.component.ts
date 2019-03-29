@@ -37,6 +37,9 @@ export class PlanetsTableComponent implements OnInit {
   @Output()
   pageChanged: EventEmitter<number> = new EventEmitter<number>();
 
+  @Output()
+  navigateToDetailsView: EventEmitter<string> = new EventEmitter<string>();
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<Planet>();
@@ -58,8 +61,9 @@ export class PlanetsTableComponent implements OnInit {
     this.pageChanged.next(event.pageIndex * event.pageSize);
   }
 
-  getRow(row: any) {
+  getRow(row: Planet) {
     console.log('row: ', row);
+    this.navigateToDetailsView.next(row.id);
   }
 
 }
