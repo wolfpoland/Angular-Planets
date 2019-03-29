@@ -7,16 +7,18 @@ export interface ListState {
   loaded: boolean;
   list: Planet[];
   metadata: ListMetadata;
+  selectedPlanet: Planet;
 }
 
 export const initialState: ListState = {
   list: null,
   loaded: false,
   loading: false,
-  metadata: null
+  metadata: null,
+  selectedPlanet: null
 };
 
-export function listReducer(state = initialState, action: Union) {
+export function listReducer(state: ListState = initialState, action: Union) {
   switch (action.type) {
     case ActionTypes.LoadPlanets: {
       return {
@@ -52,11 +54,15 @@ export function listReducer(state = initialState, action: Union) {
       return {
         ...state,
         loading: false,
-        list: [
-          ...state.list,
-          ...action.payload.results
-        ],
+        list: [...state.list, ...action.payload.results],
         metadata: action.payload.metadata
+      };
+    }
+
+    case ActionTypes.SelectPlanet: {
+      return {
+        ...state,
+        selectedPlanet: state.list.find(planet => planet.id === action.payload)
       };
     }
 

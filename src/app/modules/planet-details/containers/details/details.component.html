@@ -1,46 +1,55 @@
 <mat-card class="details__container">
   <mat-card class="details__info-wrapper">
     <div class="row title-padding title-underscore">
-      <h1>Planet Name</h1>
+      <h1>{{ planet.name | titlecase }}</h1>
     </div>
 
     <div class="wrapper__content">
       <div class="row">
         <div class="details__field">
           Climate
-          <p>Dupa</p>
+          <p>{{ planet.climate | titlecase }}</p>
         </div>
         <div class="details__field">
           Diameter
-          <p>Dupa</p>
+          <p>{{ planet.diameter }}</p>
         </div>
       </div>
 
       <div class="row">
         <div class="details__field">
-          Climate
-          <p>Dupa</p>
+          Rotation Period
+          <p>{{ planet.rotationPeriod }}</p>
         </div>
         <div class="details__field">
-          Diameter
-          <p>Dupa</p>
+          Orbital Period
+          <p>{{ planet.orbitalPeriod }}</p>
         </div>
       </div>
 
       <div class="row">
         <div class="details__field">
-          Climate
-          <p>Dupa</p>
+          Gravity
+          <p>{{ planet.gravity }}</p>
         </div>
         <div class="details__field">
-          Diameter
-          <p>Dupa</p>
+          Population
+          <p>{{ planet.population }}</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="details__field">
+          Surface Water
+          <p>{{ planet.surfaceWater }}</p>
+        </div>
+        <div class="details__field">
+          Terrain
+          <p>{{ planet.terrain | titlecase }}</p>
         </div>
       </div>
     </div>
 
-    <div class="wrapper__footer">
-
-    </div>
+    <div class="wrapper__footer"></div>
   </mat-card>
 </mat-card>

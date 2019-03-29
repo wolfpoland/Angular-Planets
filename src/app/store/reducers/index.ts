@@ -6,6 +6,7 @@ export interface AppState {
 }
 
 export const selectList = createSelector((state: AppState) => state.list, state =>  state);
+export const selectedPlanet = createSelector((state: AppState) => state.list, state =>  state.selectedPlanet);
 
 
 export default {

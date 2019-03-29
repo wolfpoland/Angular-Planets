@@ -41,7 +41,6 @@
 }
 
 .wrapper__content {
-  flex: 1;
   border: 1px solid pink;
   display: flex;
   flex-direction: column;
@@ -49,7 +48,7 @@
 
 .wrapper__footer {
   border: 1px solid salmon;
-  flex: 0.5;
+  flex: 1;
 }
 
 .title-underscore {
