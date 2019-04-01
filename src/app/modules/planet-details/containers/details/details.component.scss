@@ -20,35 +20,19 @@
   justify-content: space-between;
 }
 
-.details__field {
-  background: var(--gray-3);
-  flex: 1;
-  margin: 0 5px;
-  padding: 10px 20px;
-  p{
-      width: 100%;
-      background-color: var(--white);
-      margin-top: 2px;
-      padding: 10px 30px;
-  }
-}
-
-
 .row {
   padding: 10px 5px;
   display: flex;
   justify-content: space-between;
 }
 
-.wrapper__content {
-  border: 1px solid pink;
-  display: flex;
-  flex-direction: column;
-}
-
 .wrapper__footer {
-  border: 1px solid salmon;
+  background-color: var(--gray-3);
+  opacity: 0.5;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title-underscore {

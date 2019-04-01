@@ -3,53 +3,9 @@
     <div class="row title-padding title-underscore">
       <h1>{{ planet.name | titlecase }}</h1>
     </div>
-
-    <div class="wrapper__content">
-      <div class="row">
-        <div class="details__field">
-          Climate
-          <p>{{ planet.climate | titlecase }}</p>
-        </div>
-        <div class="details__field">
-          Diameter
-          <p>{{ planet.diameter }}</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="details__field">
-          Rotation Period
-          <p>{{ planet.rotationPeriod }}</p>
-        </div>
-        <div class="details__field">
-          Orbital Period
-          <p>{{ planet.orbitalPeriod }}</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="details__field">
-          Gravity
-          <p>{{ planet.gravity }}</p>
-        </div>
-        <div class="details__field">
-          Population
-          <p>{{ planet.population }}</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="details__field">
-          Surface Water
-          <p>{{ planet.surfaceWater }}</p>
-        </div>
-        <div class="details__field">
-          Terrain
-          <p>{{ planet.terrain | titlecase }}</p>
-        </div>
-      </div>
+    <app-planet-information [planetData]="planet"></app-planet-information>
+    <div class="wrapper__footer">
+      <h1>High targets functionality coming soon</h1>
     </div>
-
-    <div class="wrapper__footer"></div>
   </mat-card>
 </mat-card>
