@@ -50,15 +50,22 @@ export class ListEffects {
   @Effect()
   loadMorePlanets$ = this.actions.pipe(
     ofType(ActionTypes.LoadMorePlanets),
-    switchMap((action: LoadMorePlanets) =>
-      this.listDataService.getMorePlanets(action.payload).pipe(
-        map(elm => new LoadMorePlanetsSuccess(elm)),
-        catchError(err => {
-          console.log('errror: ', err);
-          return of(new LoadMorePlanetsFailure());
-        })
+    withLatestFrom<LoadMorePlanets, AppState>(this.store),
+    filter(([action, state]) =>  !state.list.visitedPages.find(
+        page => page === action.payload.pageIndex
       )
-    )
+    ),
+    switchMap(([action, state]) => {
+      return this.listDataService
+        .getNextPlanetPage(action.payload.pageIndex)
+        .pipe(
+          map(elm => new LoadMorePlanetsSuccess(elm)),
+          catchError(err => {
+            console.log('errror: ', err);
+            return of(new LoadMorePlanetsFailure());
+          })
+        );
+    })
   );
 
   constructor(

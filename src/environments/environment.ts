@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '//swapi.co/api/',
+  apiUrl: 'https://swapi.co/api/',
   corsProxy: '//cors-anywhere.herokuapp.com/'
 };
 

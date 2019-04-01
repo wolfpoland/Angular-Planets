@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -8,7 +8,8 @@ import { ListWithMetadata } from '../resources/interfaces/list-with-metadata.int
 import { Utils } from '../resources/utils';
 
 const endpoints = {
-  getPlanets: `${environment.corsProxy}${environment.apiUrl}planets`
+  getPlanets: `${environment.corsProxy}${environment.apiUrl}planets`,
+  getNextPlanetPage: `${environment.apiUrl}planets`
 };
 
 @Injectable({
@@ -30,5 +31,16 @@ export class ListDataService {
       map(Utils.appendId.bind(this)),
       map(Utils.transformToListWithMetadata.bind(this))
     );
+  }
+
+  getNextPlanetPage(pageIndex: number): Observable<ListWithMetadata> {
+    return this.http
+      .get<GetPlanetResponse>(endpoints.getNextPlanetPage, {
+        params: new HttpParams().set('page', pageIndex.toString())
+      })
+      .pipe(
+        map(Utils.appendId.bind(this)),
+        map(Utils.transformToListWithMetadata.bind(this))
+      );
   }
 }

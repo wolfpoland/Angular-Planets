@@ -1,8 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppState, selectList } from 'src/app/store/reducers';
+import {
+  AppState,
+  selectMetadata,
+  selectSliceOfList
+} from 'src/app/store/reducers';
 import { Store, select } from '@ngrx/store';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
-import { Subject } from 'rxjs';
+import { Subject, combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
   CheckLocalStorageData,
@@ -10,6 +14,7 @@ import {
 } from 'src/app/store/actions/list.actions';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-list',
@@ -26,15 +31,16 @@ export class ListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.dispatch(new CheckLocalStorageData());
-    this.store
-      .pipe(
-        takeUntil(this.ngUnsubscribe),
-        select(selectList)
-      )
-      .subscribe(res => {
-        if (!!res.list) {
-          this.planets = res.list;
-          this.listMetadata = res.metadata;
+    combineLatest(
+      this.store.pipe(select(selectMetadata)),
+      this.store.pipe(select(selectSliceOfList))
+    )
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(([ metadata, list]) => {
+        if (!!list && !!metadata) {
+          console.log('planets: ', list);
+          this.planets = list;
+          this.listMetadata = metadata;
         }
       });
   }
@@ -43,10 +49,13 @@ export class ListComponent implements OnInit, OnDestroy {
     this.filterValue = value;
   }
 
-  onPageChanged(num: number) {
-    if (!!this.listMetadata && !!this.listMetadata.next) {
-      this.store.dispatch(new LoadMorePlanets(this.listMetadata.next));
-    }
+  onPageChanged(event: PageEvent) {
+    this.store.dispatch(
+      new LoadMorePlanets({
+        pageIndex: event.pageIndex + 1,
+        num: event.pageIndex * event.pageSize
+      })
+    );
   }
 
   onNavigateToDetailsView(id: string) {

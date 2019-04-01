@@ -15,3 +15,13 @@
   justify-content: center;
   flex-direction: column;
 }
+
+//not proud :P
+::ng-deep {
+  span.loader {
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    height: 35px !important;
+    opacity: 0.5;
+  }
+}

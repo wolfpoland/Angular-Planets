@@ -21,6 +21,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import reducers from './store/reducers/index';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { AppHttpInterceptor } from './resources/interceptor/app-http.interceptor';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -55,7 +56,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
       maxAge: 25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([ListEffects])
+    EffectsModule.forRoot([ListEffects]),
+    NgxSkeletonLoaderModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true }

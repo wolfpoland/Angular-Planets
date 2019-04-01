@@ -1,4 +1,7 @@
-<mat-table [dataSource]="dataSource">
+<mat-table
+  *ngIf="!!dataSource.data && !!dataSource.data.length; else loading"
+  [dataSource]="dataSource"
+>
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Planet name </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
@@ -25,8 +28,15 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns" (click)="getRow(row)"></mat-row>
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    (click)="getRow(row)"
+  ></mat-row>
 </mat-table>
+<ng-template #loading>
+  <ngx-skeleton-loader count="13" appearance="lines"> </ngx-skeleton-loader>
+</ng-template>
+
 <mat-paginator
   showFirstLastButtons
   [pageSize]="PAGE_SIZE"
