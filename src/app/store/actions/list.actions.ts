@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ListWithMetadata } from 'src/app/resources/interfaces/list-with-metadata.interface';
+import { Planet } from 'src/app/resources/interfaces/planet.interface';
 
 export enum ActionTypes {
   LoadPlanets = '[List] Load Planets',
@@ -7,6 +8,8 @@ export enum ActionTypes {
   LoadPlanetsFailure = '[List] Load Planets Failure',
 
   CheckLocalStorageData = '[List] Check Local Storage Data',
+
+  SelectPlanet = '[List] Selected Planet',
 
   LoadMorePlanets = '[List] Load More Planets',
   LoadMorePlanetsSuccess = '[List] Load More Planets Success',
@@ -68,10 +71,21 @@ export class LoadMorePlanetsFailure implements Action {
   constructor(public payload = null) {}
 }
 
+/*
+  Selected planet to show it's information
+*/
+
+export class SelectPlanet implements Action {
+  readonly type = ActionTypes.SelectPlanet;
+
+  constructor(public payload: string) {}
+}
+
 export type Union =
   | LoadPlanets
   | LoadPlanetsSuccess
   | LoadPlanetsFailure
   | LoadMorePlanets
   | LoadMorePlanetsSuccess
-  | LoadMorePlanetsFailure;
+  | LoadMorePlanetsFailure
+  | SelectPlanet;

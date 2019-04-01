@@ -1,0 +1,11 @@
+<mat-card class="details__container">
+  <mat-card class="details__info-wrapper">
+    <div class="row title-padding title-underscore">
+      <h1>{{ planet.name | titlecase }}</h1>
+    </div>
+    <app-planet-information [planetData]="planet"></app-planet-information>
+    <div class="wrapper__footer">
+      <h1>High targets functionality coming soon</h1>
+    </div>
+  </mat-card>
+</mat-card>

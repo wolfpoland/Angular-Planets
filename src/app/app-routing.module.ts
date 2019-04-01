@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './containers/list/list.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -9,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'details/:id',
-    loadChildren: './modules/details/details.module#DetailsModule'
+    loadChildren: './modules/planet-details/planet-details.module#PlanetDetailsModule'
   },
   {
     path: '',

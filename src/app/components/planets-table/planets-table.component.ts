@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
 import { PageEvent } from '@angular/material/paginator';
@@ -33,6 +28,9 @@ export class PlanetsTableComponent {
   }
 
   @Output()
+  navigateToDetailsView: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
   pageChanged: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   dataSource = new MatTableDataSource<Planet>();
@@ -49,7 +47,8 @@ export class PlanetsTableComponent {
     this.pageChanged.next(event);
   }
 
-  getRow(row: any) {
+  getRow(row: Planet) {
     console.log('row: ', row);
+    this.navigateToDetailsView.next(row.id);
   }
 }

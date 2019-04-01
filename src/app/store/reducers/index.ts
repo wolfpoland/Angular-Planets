@@ -5,6 +5,11 @@ export interface AppState {
   list: ListState;
 }
 
+export const selectedPlanet = createSelector(
+  (state: AppState) => state.list,
+  state => state.selectedPlanet
+);
+
 export const selectMetadata = createSelector(
   (state: AppState) => state.list,
   (state: ListState) => state.metadata

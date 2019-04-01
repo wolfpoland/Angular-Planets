@@ -1,6 +1,8 @@
 import { Union, ActionTypes } from '../actions/list.actions';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
 import { Page } from 'src/app/resources/interfaces/page.interface';
+import { Planet } from 'src/app/resources/interfaces/planet.interface';
+import { Utils } from 'src/app/resources/utils';
 
 export const PAGINATION_SIZE = 10;
 
@@ -9,6 +11,7 @@ export interface ListState {
   loaded: boolean;
   pages: Page[];
   metadata: ListMetadata;
+  selectedPlanet: Planet;
   endElement: number;
   visitedPages: number[];
   lastIndex: number;
@@ -19,10 +22,12 @@ export const initialState: ListState = {
   loaded: false,
   loading: false,
   metadata: null,
+  selectedPlanet: null,
   endElement: 0,
   visitedPages: [],
   lastIndex: 0
 };
+
 
 export function listReducer(
   state: ListState = initialState,
@@ -83,6 +88,13 @@ export function listReducer(
         ],
         visitedPages: [...state.visitedPages, state.lastIndex],
         metadata: action.payload.metadata
+      };
+    }
+
+    case ActionTypes.SelectPlanet: {
+      return {
+        ...state,
+        selectedPlanet: Utils.flatPages(state.pages).find(planet => planet.id === action.payload)
       };
     }
 

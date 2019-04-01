@@ -141,10 +141,15 @@ table {
   border-spacing: 0;
 }
 
+hr {
+  width: 100%;
+}
+
 * {
   font-family: Roboto, sans-serif;
   box-sizing: border-box;
 }
+
 :root {
   --main-color: #d50000;
   --white: #faf9f9;
@@ -154,3 +159,4 @@ table {
   --gray-3: #d8d1d1;
   --gray-2: #e4dfdf;
 }
+
