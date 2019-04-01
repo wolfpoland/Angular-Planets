@@ -26,7 +26,7 @@ export class LoadPlanets implements Action {
 export class LoadPlanetsSuccess implements Action {
   readonly type = ActionTypes.LoadPlanetsSuccess;
 
-  constructor(public payload: ListWithMetadata) {}
+  constructor(public payload: ListWithMetadata = null) {}
 }
 
 export class LoadPlanetsFailure implements Action {
@@ -53,13 +53,13 @@ export class CheckLocalStorageData implements Action {
 export class LoadMorePlanets implements Action {
   readonly type = ActionTypes.LoadMorePlanets;
 
-  constructor(public payload: string) {}
+  constructor(public payload: { pageIndex: number; num: number } = null) {}
 }
 
 export class LoadMorePlanetsSuccess implements Action {
   readonly type = ActionTypes.LoadMorePlanetsSuccess;
 
-  constructor(public payload: ListWithMetadata) {}
+  constructor(public payload: ListWithMetadata = null) {}
 }
 
 export class LoadMorePlanetsFailure implements Action {

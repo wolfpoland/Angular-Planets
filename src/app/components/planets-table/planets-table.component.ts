@@ -2,13 +2,11 @@ import {
   Component,
   Input,
   Output,
-  EventEmitter,
-  ViewChild,
-  OnInit
+  EventEmitter
 } from '@angular/core';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
-import { PageEvent, MatPaginator } from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -16,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './planets-table.component.html',
   styleUrls: ['./planets-table.component.scss']
 })
-export class PlanetsTableComponent implements OnInit {
+export class PlanetsTableComponent {
   @Input()
   set planetsData(data) {
     if (!!data) {
@@ -30,14 +28,12 @@ export class PlanetsTableComponent implements OnInit {
   @Input()
   set filterTable(filterValue: string) {
     if (!!filterValue) {
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+      // this.dataSource.filter = filterValue.trim().toLowerCase();
     }
   }
 
   @Output()
-  pageChanged: EventEmitter<number> = new EventEmitter<number>();
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  pageChanged: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
   dataSource = new MatTableDataSource<Planet>();
   readonly columns = [
@@ -49,17 +45,11 @@ export class PlanetsTableComponent implements OnInit {
   ];
   readonly PAGE_SIZE = 10;
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   onPageChange(event: PageEvent) {
-    console.log('event: ', event);
-    this.pageChanged.next(event.pageIndex * event.pageSize);
+    this.pageChanged.next(event);
   }
 
   getRow(row: any) {
     console.log('row: ', row);
   }
-
 }
