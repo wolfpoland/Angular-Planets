@@ -1,5 +1,6 @@
 import { ListState, listReducer, PAGINATION_SIZE } from './list.reducer';
 import { createSelector } from '@ngrx/store';
+import { ListWithMetadata } from 'src/app/resources/interfaces/list-with-metadata.interface';
 
 export interface AppState {
   list: ListState;
@@ -8,6 +9,27 @@ export interface AppState {
 export const selectedPlanet = createSelector(
   (state: AppState) => state.list,
   state => state.selectedPlanet
+);
+
+export const selectedFilteredPlanets = createSelector(
+  (state: AppState) => state.list,
+  (state: ListState): ListWithMetadata => {
+    if (
+      !!state.filteredPagesWithMetadata &&
+      !!state.filteredPagesWithMetadata.pages
+    ) {
+      const lastIndex = state.filteredPlanetsLastIndex;
+      const foundPage = state.filteredPagesWithMetadata.pages.find(
+        page => page.index === lastIndex
+      );
+      return !!foundPage
+        ? {
+            results: foundPage.list,
+            metadata: { count: state.filteredPagesWithMetadata.count }
+          }
+        : null;
+    }
+  }
 );
 
 export const selectMetadata = createSelector(

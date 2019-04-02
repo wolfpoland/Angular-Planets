@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ListWithMetadata } from 'src/app/resources/interfaces/list-with-metadata.interface';
-import { Planet } from 'src/app/resources/interfaces/planet.interface';
+import {  PagesWithMetadata } from 'src/app/resources/interfaces/page-with-metadata.interface';
 
 export enum ActionTypes {
   LoadPlanets = '[List] Load Planets',
@@ -10,6 +10,10 @@ export enum ActionTypes {
   CheckLocalStorageData = '[List] Check Local Storage Data',
 
   SelectPlanet = '[List] Selected Planet',
+
+  FilterPlanets = '[List] Filter Planets',
+  FilteredPlanets = '[List] Filtered Data',
+  LoadMoreFilteredPlanets = '[List] Load More Filtered Planets',
 
   LoadMorePlanets = '[List] Load More Planets',
   LoadMorePlanetsSuccess = '[List] Load More Planets Success',
@@ -56,7 +60,7 @@ export class CheckLocalStorageData implements Action {
 export class LoadMorePlanets implements Action {
   readonly type = ActionTypes.LoadMorePlanets;
 
-  constructor(public payload: { pageIndex: number; num: number } = null) {}
+  constructor(public payload: number) {}
 }
 
 export class LoadMorePlanetsSuccess implements Action {
@@ -81,6 +85,29 @@ export class SelectPlanet implements Action {
   constructor(public payload: string) {}
 }
 
+/*
+  Filter Planets
+*/
+
+export class FilterPlanets implements Action {
+  readonly type = ActionTypes.FilterPlanets;
+
+  constructor(public payload: string) {}
+}
+
+export class FilteredPlanets implements Action {
+  readonly type = ActionTypes.FilteredPlanets;
+
+  constructor(public payload: PagesWithMetadata) {}
+}
+
+
+export class LoadMoreFilteredPlanets implements Action {
+  readonly type = ActionTypes.LoadMoreFilteredPlanets;
+
+  constructor(public payload: number) {}
+}
+
 export type Union =
   | LoadPlanets
   | LoadPlanetsSuccess
@@ -88,4 +115,8 @@ export type Union =
   | LoadMorePlanets
   | LoadMorePlanetsSuccess
   | LoadMorePlanetsFailure
-  | SelectPlanet;
+  | SelectPlanet
+  | FilterPlanets
+  | FilteredPlanets
+  | CheckLocalStorageData
+  | LoadMoreFilteredPlanets;
