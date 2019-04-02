@@ -5,7 +5,9 @@ import {
   LoadPlanets,
   LoadMorePlanets,
   LoadMorePlanetsSuccess,
-  LoadMorePlanetsFailure
+  LoadMorePlanetsFailure,
+  FilterPlanets,
+  FilteredPlanets
 } from '../actions/list.actions';
 import {
   switchMap,
@@ -19,11 +21,12 @@ import { ListDataService } from 'src/app/services/list-data.service';
 import { of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../reducers';
+import { ListService } from 'src/app/services/list.service';
 
 @Injectable()
 export class ListEffects {
   @Effect()
-  checkLocalStorageData$ = this.actions.pipe(
+  checkLocalStorageData = this.actions.pipe(
     ofType(ActionTypes.CheckLocalStorageData),
     withLatestFrom(this.store),
     tap(elm => console.log('elm: ', elm)),
@@ -32,7 +35,7 @@ export class ListEffects {
   );
 
   @Effect()
-  loadPlanets$ = this.actions.pipe(
+  loadPlanets = this.actions.pipe(
     ofType(ActionTypes.LoadPlanets),
     switchMap(() =>
       this.listDataService.getPlanets().pipe(
@@ -48,16 +51,16 @@ export class ListEffects {
   );
 
   @Effect()
-  loadMorePlanets$ = this.actions.pipe(
+  loadMorePlanets = this.actions.pipe(
     ofType(ActionTypes.LoadMorePlanets),
     withLatestFrom<LoadMorePlanets, AppState>(this.store),
-    filter(([action, state]) =>  !state.list.visitedPages.find(
-        page => page === action.payload.pageIndex
-      )
+    filter(
+      ([action, state]) =>
+        !state.list.visitedPages.find(page => page === action.payload)
     ),
     switchMap(([action, state]) => {
       return this.listDataService
-        .getNextPlanetPage(action.payload.pageIndex)
+        .getNextPlanetPage(action.payload)
         .pipe(
           map(elm => new LoadMorePlanetsSuccess(elm)),
           catchError(err => {
@@ -68,9 +71,25 @@ export class ListEffects {
     })
   );
 
+  @Effect()
+  filterPlanets = this.actions.pipe(
+    ofType(ActionTypes.FilterPlanets),
+    withLatestFrom<FilterPlanets, AppState>(this.store),
+    map(
+      ([filterPlanets, appState]) =>
+        new FilteredPlanets(
+          this.listService.filterList(
+            appState.list.pages,
+            filterPlanets.payload
+          )
+        )
+    )
+  );
+
   constructor(
     private actions: Actions,
     private listDataService: ListDataService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private listService: ListService
   ) {}
 }

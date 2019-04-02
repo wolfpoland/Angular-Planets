@@ -1,7 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild
+} from '@angular/core';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
-import { PageEvent } from '@angular/material/paginator';
+import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -20,18 +26,14 @@ export class PlanetsTableComponent {
   @Input()
   metadata: ListMetadata | null;
 
-  @Input()
-  set filterTable(filterValue: string) {
-    if (!!filterValue) {
-      // this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
-  }
-
   @Output()
   navigateToDetailsView: EventEmitter<string> = new EventEmitter<string>();
 
   @Output()
   pageChanged: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+
+  @ViewChild(MatPaginator)
+  private paginator: MatPaginator;
 
   dataSource = new MatTableDataSource<Planet>();
   readonly columns = [
@@ -43,12 +45,15 @@ export class PlanetsTableComponent {
   ];
   readonly PAGE_SIZE = 10;
 
+  moveToFirstPage() {
+    this.paginator.firstPage();
+  }
+
   onPageChange(event: PageEvent) {
     this.pageChanged.next(event);
   }
 
   getRow(row: Planet) {
-    console.log('row: ', row);
     this.navigateToDetailsView.next(row.id);
   }
 }

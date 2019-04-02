@@ -3,6 +3,7 @@ import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interfa
 import { Page } from 'src/app/resources/interfaces/page.interface';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { Utils } from 'src/app/resources/utils';
+import { PagesWithMetadata } from 'src/app/resources/interfaces/page-with-metadata.interface';
 
 export const PAGINATION_SIZE = 10;
 
@@ -10,11 +11,12 @@ export interface ListState {
   loading: boolean;
   loaded: boolean;
   pages: Page[];
+  filteredPagesWithMetadata: PagesWithMetadata;
   metadata: ListMetadata;
   selectedPlanet: Planet;
-  endElement: number;
   visitedPages: number[];
   lastIndex: number;
+  filteredPlanetsLastIndex: number;
 }
 
 export const initialState: ListState = {
@@ -23,17 +25,25 @@ export const initialState: ListState = {
   loading: false,
   metadata: null,
   selectedPlanet: null,
-  endElement: 0,
   visitedPages: [],
-  lastIndex: 0
+  lastIndex: 0,
+  filteredPlanetsLastIndex: 0,
+  filteredPagesWithMetadata: null
 };
-
 
 export function listReducer(
   state: ListState = initialState,
   action: Union
 ): ListState {
   switch (action.type) {
+    case ActionTypes.CheckLocalStorageData: {
+      return {
+        ...state,
+        filteredPagesWithMetadata: null,
+        filteredPlanetsLastIndex: 0
+      };
+    }
+
     case ActionTypes.LoadPlanets: {
       return {
         ...state,
@@ -41,8 +51,8 @@ export function listReducer(
         loaded: false,
         pages: [],
         metadata: null,
-        endElement: PAGINATION_SIZE,
-        lastIndex: 0
+        lastIndex: 0,
+        filteredPagesWithMetadata: null
       };
     }
 
@@ -73,8 +83,7 @@ export function listReducer(
         ...state,
         loading: true,
         loaded: false,
-        lastIndex: action.payload.pageIndex,
-        endElement: action.payload.num + PAGINATION_SIZE
+        lastIndex: action.payload
       };
     }
 
@@ -94,7 +103,31 @@ export function listReducer(
     case ActionTypes.SelectPlanet: {
       return {
         ...state,
-        selectedPlanet: Utils.flatPages(state.pages).find(planet => planet.id === action.payload)
+        selectedPlanet: Utils.flatPages(state.pages).find(
+          planet => planet.id === action.payload
+        )
+      };
+    }
+
+    case ActionTypes.FilterPlanets: {
+      return {
+        ...state,
+        filteredPagesWithMetadata: null,
+        filteredPlanetsLastIndex: 1
+      };
+    }
+
+    case ActionTypes.FilteredPlanets: {
+      return {
+        ...state,
+        filteredPagesWithMetadata: action.payload
+      };
+    }
+
+    case ActionTypes.LoadMoreFilteredPlanets: {
+      return {
+        ...state,
+        filteredPlanetsLastIndex: action.payload
       };
     }
 
