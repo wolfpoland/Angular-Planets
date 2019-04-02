@@ -33,7 +33,6 @@ export class DetailsComponent implements OnInit {
       .subscribe(res => {
         if (!!res) {
           this.planet = res;
-          console.log('response in details: ', res);
         }
       });
   }

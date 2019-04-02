@@ -29,7 +29,6 @@ export class ListEffects {
   checkLocalStorageData = this.actions.pipe(
     ofType(ActionTypes.CheckLocalStorageData),
     withLatestFrom(this.store),
-    tap(elm => console.log('elm: ', elm)),
     filter(([_, state]) => !state.list.loaded),
     map(() => new LoadPlanets())
   );
@@ -64,7 +63,7 @@ export class ListEffects {
         .pipe(
           map(elm => new LoadMorePlanetsSuccess(elm)),
           catchError(err => {
-            console.log('errror: ', err);
+            console.log('Error: ', err);
             return of(new LoadMorePlanetsFailure());
           })
         );
