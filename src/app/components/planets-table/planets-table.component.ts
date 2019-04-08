@@ -3,7 +3,8 @@ import {
   Input,
   Output,
   EventEmitter,
-  ViewChild
+  ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interface';
@@ -13,7 +14,8 @@ import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-planets-table',
   templateUrl: './planets-table.component.html',
-  styleUrls: ['./planets-table.component.scss']
+  styleUrls: ['./planets-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlanetsTableComponent {
   @Input()

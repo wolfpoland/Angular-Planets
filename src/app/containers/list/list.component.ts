@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import {
   AppState,
   selectMetadata,
@@ -8,7 +8,7 @@ import {
 import { Store, select } from '@ngrx/store';
 import { Planet } from 'src/app/resources/interfaces/planet.interface';
 import { Subject, combineLatest } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import {
   CheckLocalStorageData,
   LoadMorePlanets,
@@ -19,6 +19,7 @@ import { ListMetadata } from 'src/app/resources/interfaces/list-metadata.interfa
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { PlanetsTableComponent } from 'src/app/components/planets-table/planets-table.component';
+import { FormControl } from '@angular/forms';
 
 enum ListState {
   real = 0,
@@ -30,9 +31,10 @@ enum ListState {
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
   planets: Planet[];
   listMetadata: ListMetadata;
+  inputControl: FormControl = new FormControl('');
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private listState: ListState;
 
@@ -65,8 +67,16 @@ export class ListComponent implements OnInit, OnDestroy {
       });
   }
 
-  onInputKeyUp(value: string) {
-    this.store.dispatch(new FilterPlanets(value));
+  ngAfterViewInit() {
+    this.inputControl.valueChanges
+    .pipe(
+      takeUntil(this.ngUnsubscribe),
+      distinctUntilChanged(),
+      debounceTime(200)
+    )
+    .subscribe(value => {
+      this.store.dispatch(new FilterPlanets(value));
+    });
   }
 
   onPageChanged(event: PageEvent) {

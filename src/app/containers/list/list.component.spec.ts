@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import reducers from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -26,7 +27,8 @@ describe('ListComponent', () => {
         MatPaginatorModule,
         StoreModule.forRoot(reducers),
         RouterTestingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ReactiveFormsModule
       ],
       declarations: [ListComponent, PlanetsTableComponent]
     }).compileComponents();

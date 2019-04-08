@@ -3,17 +3,17 @@
     <div class="planet-information__field">
       Climate
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.climate | titlecase }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
     <div class="planet-information__field">
       Diameter
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.diameter }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
   </div>
@@ -22,17 +22,17 @@
     <div class="planet-information__field">
       Rotation Period
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.rotationPeriod }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
     <div class="planet-information__field">
       Orbital Period
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.orbitalPeriod }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
   </div>
@@ -41,17 +41,17 @@
     <div class="planet-information__field">
       Gravity
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.gravity }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
     <div class="planet-information__field">
       Population
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.population }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
   </div>
@@ -60,17 +60,17 @@
     <div class="planet-information__field">
       Surface Water
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.surfaceWater }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
     <div class="planet-information__field">
       Terrain
       <p>
-        <ng-template *ngIf="planetData">
+        <ng-container *ngIf="!!planetData">
           {{ planetData.terrain | titlecase }}
-        </ng-template>
+        </ng-container>
       </p>
     </div>
   </div>
