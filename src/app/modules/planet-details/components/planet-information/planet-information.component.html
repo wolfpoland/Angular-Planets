@@ -2,44 +2,76 @@
   <div class="row">
     <div class="planet-information__field">
       Climate
-      <p>{{ planetData.climate | titlecase }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.climate | titlecase }}
+        </ng-template>
+      </p>
     </div>
     <div class="planet-information__field">
       Diameter
-      <p>{{ planetData.diameter }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.diameter }}
+        </ng-template>
+      </p>
     </div>
   </div>
 
   <div class="row">
     <div class="planet-information__field">
       Rotation Period
-      <p>{{ planetData.rotationPeriod }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.rotationPeriod }}
+        </ng-template>
+      </p>
     </div>
     <div class="planet-information__field">
       Orbital Period
-      <p>{{ planetData.orbitalPeriod }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.orbitalPeriod }}
+        </ng-template>
+      </p>
     </div>
   </div>
 
   <div class="row">
     <div class="planet-information__field">
       Gravity
-      <p>{{ planetData.gravity }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.gravity }}
+        </ng-template>
+      </p>
     </div>
     <div class="planet-information__field">
       Population
-      <p>{{ planetData.population }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.population }}
+        </ng-template>
+      </p>
     </div>
   </div>
 
   <div class="row">
     <div class="planet-information__field">
       Surface Water
-      <p>{{ planetData.surfaceWater }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.surfaceWater }}
+        </ng-template>
+      </p>
     </div>
     <div class="planet-information__field">
       Terrain
-      <p>{{ planetData.terrain | titlecase }}</p>
+      <p>
+        <ng-template *ngIf="planetData">
+          {{ planetData.terrain | titlecase }}
+        </ng-template>
+      </p>
     </div>
   </div>
 </div>

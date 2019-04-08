@@ -8,10 +8,6 @@ import { PlanetInformationComponent } from './components/planet-information/plan
 
 @NgModule({
   declarations: [DetailsComponent, PlanetInformationComponent],
-  imports: [
-    SharedModule,
-    PlanetDetailsRoutingModule,
-    MatCardModule
-  ]
+  imports: [SharedModule, PlanetDetailsRoutingModule, MatCardModule]
 })
-export class PlanetDetailsModule { }
+export class PlanetDetailsModule {}

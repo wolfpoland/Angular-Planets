@@ -1,7 +1,11 @@
 <mat-card class="details__container">
   <mat-card class="details__info-wrapper">
     <div class="row title-padding title-underscore">
-      <h1>{{ planet.name | titlecase }}</h1>
+      <h1>
+        <ng-template *ngIf="!!planet">
+            {{ planet.name | titlecase }}
+        </ng-template>
+      </h1>
     </div>
     <app-planet-information [planetData]="planet"></app-planet-information>
     <div class="wrapper__footer">
