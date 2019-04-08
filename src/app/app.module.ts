@@ -22,6 +22,7 @@ import reducers from './store/reducers/index';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { AppHttpInterceptor } from './resources/interceptor/app-http.interceptor';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function localStorageSyncReducer(
   reducer: ActionReducer<any>
@@ -57,7 +58,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
       logOnly: environment.production
     }),
     EffectsModule.forRoot([ListEffects]),
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true }

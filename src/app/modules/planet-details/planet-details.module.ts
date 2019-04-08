@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { PlanetInformationComponent } from './components/planet-information/planet-information.component';
 
 @NgModule({
-  declarations: [DetailsComponent, PlanetInformationComponent],
-  imports: [SharedModule, PlanetDetailsRoutingModule, MatCardModule]
+  imports: [SharedModule, PlanetDetailsRoutingModule, MatCardModule],
+  declarations: [DetailsComponent, PlanetInformationComponent]
 })
 export class PlanetDetailsModule {}

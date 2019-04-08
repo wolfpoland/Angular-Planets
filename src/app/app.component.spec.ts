@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ListComponent } from './containers/list/list.component';
 import { PlanetsTableComponent } from './components/planets-table/planets-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -21,7 +22,8 @@ describe('AppComponent', () => {
         MatTableModule,
         MatPaginatorModule,
         MatInputModule,
-        NgxSkeletonLoaderModule
+        NgxSkeletonLoaderModule,
+        ReactiveFormsModule
       ],
       declarations: [
         AppComponent,
